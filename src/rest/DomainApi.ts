@@ -36,17 +36,6 @@ export interface RepresentationModelObject {
   _links?: Links;
 }
 
-export interface EntityModelInvoiceLine {
-  /** @format date */
-  date?: string;
-  product?: string;
-  /** @format float */
-  price?: number;
-  /** @format int32 */
-  itemIdentificationIdOfSeller?: number;
-  _links?: Links;
-}
-
 export interface InvoiceLine {
   id?: string;
   /** @format date */
@@ -56,6 +45,23 @@ export interface InvoiceLine {
   price?: number;
   /** @format int32 */
   itemIdentificationIdOfSeller?: number;
+  storeName?: string;
+  /** @format int32 */
+  unitCode?: number;
+}
+
+export interface EntityModelInvoiceLine {
+  /** @format date */
+  date?: string;
+  product?: string;
+  /** @format float */
+  price?: number;
+  /** @format int32 */
+  itemIdentificationIdOfSeller?: number;
+  storeName?: string;
+  /** @format int32 */
+  unitCode?: number;
+  _links?: Links;
 }
 
 export interface PageMetadata {
@@ -84,64 +90,22 @@ export interface CollectionModelEntityModelInvoiceLine {
   _links?: Links;
 }
 
-export interface ApplicationUser {
-  /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  authorities?: GrantedAuthority[];
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  /** @format int32 */
-  id?: number;
-}
-
-export interface EntityModelApplicationUser {
-  /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  /** @format int32 */
-  id?: number;
-  _links?: Links;
-}
-
-export interface GrantedAuthority {
-  authority?: string;
-}
-
-export interface PagedModelEntityModelApplicationUser {
-  _embedded?: {
-    applicationUsers?: EntityModelApplicationUser[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface CollectionModelRole {
-  _embedded?: {
-    roles?: RoleResponse[];
-  };
-  _links?: Links;
-}
-
-export interface CollectionModelObject {
-  _embedded?: {
-    objects?: object[];
-  };
-  _links?: Links;
+export interface Invoice {
+  id?: string;
+  storeName?: string;
+  unitCode?: string;
+  documentNo?: string;
+  /** @format date */
+  date?: string;
+  /** @uniqueItems true */
+  invoiceLineList?: InvoiceLine[];
+  /** @format float */
+  totalCost?: number;
 }
 
 export interface EntityModelInvoice {
   storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
+  unitCode?: string;
   documentNo?: string;
   /** @format date */
   date?: string;
@@ -150,20 +114,6 @@ export interface EntityModelInvoice {
   /** @format float */
   totalCost?: number;
   _links?: Links;
-}
-
-export interface Invoice {
-  id?: string;
-  storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
-  documentNo?: string;
-  /** @format date */
-  date?: string;
-  /** @uniqueItems true */
-  invoiceLineList?: InvoiceLine[];
-  /** @format float */
-  totalCost?: number;
 }
 
 export interface PagedModelEntityModelInvoice {
@@ -181,19 +131,8 @@ export interface CollectionModelEntityModelInvoice {
   _links?: Links;
 }
 
-export interface EntityModelRole {
-  /** @format int32 */
-  roleId?: number;
+export interface GrantedAuthority {
   authority?: string;
-  _links?: Links;
-}
-
-export interface PagedModelEntityModelRole {
-  _embedded?: {
-    roles?: EntityModelRole[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
 }
 
 export interface EntityModelClient {
@@ -228,6 +167,71 @@ export interface PagedModelEntityModelClient {
   };
   _links?: Links;
   page?: PageMetadata;
+}
+
+export interface EntityModelRole {
+  /** @format int32 */
+  roleId?: number;
+  authority?: string;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelRole {
+  _embedded?: {
+    roles?: EntityModelRole[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface ApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  authorities?: GrantedAuthority[];
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+}
+
+export interface EntityModelApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelApplicationUser {
+  _embedded?: {
+    applicationUsers?: EntityModelApplicationUser[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelRole {
+  _embedded?: {
+    roles?: RoleResponse[];
+  };
+  _links?: Links;
+}
+
+export interface CollectionModelObject {
+  _embedded?: {
+    objects?: object[];
+  };
+  _links?: Links;
 }
 
 export interface ApplicationUserRequestBody {
@@ -284,13 +288,15 @@ export interface InvoiceLineRequestBody {
   price?: number;
   /** @format int32 */
   itemIdentificationIdOfSeller?: number;
+  storeName?: string;
+  /** @format int32 */
+  unitCode?: number;
 }
 
 export interface InvoiceRequestBody {
   id?: string;
   storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
+  unitCode?: string;
   documentNo?: string;
   /** @format date */
   date?: string;
@@ -337,10 +343,7 @@ export interface ProductPriceIncreaseStatistic {
   /** @format float */
   ratioPerDay?: number;
 }
-interface InviceLineWithRealDate{
-  invoiceLine:InvoiceLine,
-  date:Date
-}
+
 export interface ProductPriceIncreaseStatisticWithTimeTrail {
   productPriceIncreaseStatistic?: ProductPriceIncreaseStatistic;
   invoiceLinesOfASpecificProduct?: InvoiceLine[];
@@ -1017,6 +1020,21 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
       }),
 
     /**
+     * No description
+     *
+     * @tags invoice-line-search-controller
+     * @name ExecuteSearchInvoicelineGet1
+     * @request GET:/invoiceLines/search/findDistinctProductBy
+     */
+    executeSearchInvoicelineGet1: (params: RequestParams = {}) =>
+      this.request<CollectionModelEntityModelInvoiceLine, void>({
+        path: `/invoiceLines/search/findDistinctProductBy`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
      * @description get-invoiceline
      *
      * @tags invoice-line-entity-controller
@@ -1149,70 +1167,6 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
     ) =>
       this.request<CollectionModelEntityModelInvoice, void>({
         path: `/invoices/search/findByDateBetween`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags invoice-search-controller
-     * @name ExecuteSearchInvoiceGet1
-     * @request GET:/invoices/search/findByInvoiceLineListContaining
-     */
-    executeSearchInvoiceGet1: (
-      query?: {
-        invoiceLineList?: InvoiceLine[];
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<CollectionModelEntityModelInvoice, void>({
-        path: `/invoices/search/findByInvoiceLineListContaining`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags invoice-search-controller
-     * @name ExecuteSearchInvoiceGet2
-     * @request GET:/invoices/search/findByStoreName
-     */
-    executeSearchInvoiceGet2: (
-      query?: {
-        storeName?: string;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<CollectionModelEntityModelInvoice, void>({
-        path: `/invoices/search/findByStoreName`,
-        method: "GET",
-        query: query,
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags invoice-search-controller
-     * @name ExecuteSearchInvoiceGet3
-     * @request GET:/invoices/search/findByUnitCode
-     */
-    executeSearchInvoiceGet3: (
-      query?: {
-        /** @format int32 */
-        unitCode?: number;
-      },
-      params: RequestParams = {},
-    ) =>
-      this.request<CollectionModelEntityModelInvoice, void>({
-        path: `/invoices/search/findByUnitCode`,
         method: "GET",
         query: query,
         format: "json",
@@ -1553,21 +1507,6 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      * No description
      *
      * @tags invoice-controller
-     * @name GetMostExpensiveInvoiceLineOfStore
-     * @request GET:/invoice/{storeName}
-     */
-    getMostExpensiveInvoiceLineOfStore: (storeName: string, params: RequestParams = {}) =>
-      this.request<InvoiceLine, any>({
-        path: `/invoice/${storeName}`,
-        method: "GET",
-        format: "json",
-        ...params,
-      }),
-
-    /**
-     * No description
-     *
-     * @tags invoice-controller
      * @name OcrTheImage
      * @request GET:/invoice/ocr
      */
@@ -1649,6 +1588,22 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
         path: `/statistics/price/increase/highest`,
         method: "GET",
         query: query,
+        format: "json",
+        ...params,
+      }),
+  };
+  invoiceLine = {
+    /**
+     * No description
+     *
+     * @tags invoice-line-controller
+     * @name GetAllProductNames
+     * @request GET:/invoiceLine/productNames
+     */
+    getAllProductNames: (params: RequestParams = {}) =>
+      this.request<string[], any>({
+        path: `/invoiceLine/productNames`,
+        method: "GET",
         format: "json",
         ...params,
       }),

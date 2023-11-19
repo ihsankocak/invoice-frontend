@@ -11,7 +11,10 @@ export const Menu=()=>{
       <Link to="/invoice">Fatura Gir</Link>
     </li>
     <li>
-      <Link to="/dashboard">Dashboard</Link>
+      <Link to="/dashboard/statistics">İstatistik Dashboardu</Link>
+    </li>
+    <li>
+      <Link to="/dashboard/shopping">Shopping Dashboardu</Link>
     </li>
   </ul>
 </nav>

@@ -6,7 +6,9 @@ import {
 } from "react-router-dom";
 import { InvoiceForm } from "./invoice/InvoiceForm";
 import { InvoiceMain } from "./invoice/InvoiceMain";
-import { Dashboard } from "./dashboard/Dashboard";
+
+import ShoppinDashboard from "./dashboard/ShoppingDashboard";
+import StatisticsDashboard from "./dashboard/StatisticsDashboard";
 
 let router = createBrowserRouter([
   {
@@ -22,9 +24,15 @@ let router = createBrowserRouter([
     }
   }, 
   {
-    path: "/dashboard",
+    path: "/dashboard/statistics",
     Component() {
-      return <Dashboard/>
+      return <StatisticsDashboard/>
+    }
+  },
+  {
+    path: "/dashboard/shopping",
+    Component() {
+      return <ShoppinDashboard/>
     }
   },
 ]);
