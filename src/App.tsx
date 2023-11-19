@@ -1,24 +1,38 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import { Link, Outlet, Route, Routes } from 'react-router-dom';
+import { InvalidatedProjectKind } from 'typescript';
+import { InvoiceForm } from './invoice/InvoiceForm';
+import Language from './components/language/Language';
+import { Flex } from '@chakra-ui/react';
+import { Menu } from './Menu';
+import { InvoiceMain } from './invoice/InvoiceMain';
+import { Dashboard } from './dashboard/Dashboard';
+function NoMatch() {
+  return (
+    <div>
+      <h2>Nothing to see here!</h2>
+      <p>
+        <Link to="/">Go to the home page</Link>
+      </p>
+    </div>
+  );
+}
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       <Language />
+      <Menu/>
+      <Routes>
+    <Route path="/" >
+      <Route index element={<InvoiceMain />} />
+      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="invoice" element={<InvoiceMain />} />
+      <Route path="*" element={<NoMatch />} />
+    </Route>
+  </Routes>
+
     </div>
   );
 }

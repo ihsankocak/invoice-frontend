@@ -1,0 +1,17 @@
+{
+    "invoiceForm": {
+        "totalCost": "Toplam Fiyat",
+        "date": "Tarih",
+        "documentNo": "Belge No"
+    },
+    "dashboard":{
+        "selectStore":"Market seçiniz",
+        "yesterday":"Dün",
+        "today":"Bugün",
+        "lastWeek":"Geçen Hafta",
+        "lastMonth":"Geçen Ay",
+        "lastYear": "Geçen Yıl",
+        "selectTimeInterval":"Zaman Aralığı Seçiniz",
+        "selectProduct":"Select Product"
+    }
+}

@@ -1,0 +1,17 @@
+{
+    "invoiceForm": {
+        "totalCost": "Total Cost",
+        "date": "Date",
+        "documentNo": "Document Number"
+    },
+    "dashboard":{
+        "selectStore":"Select store",
+        "yesterday":"Yesterday",
+        "today":"Today",
+        "lastWeek":"Last Week",
+        "lastMonth":"Last Month",
+        "lastYear": "Last Year",
+        "selectTimeInterval":"Select time interval",
+        "selectProduct":"Ürün Seçiniz"
+    }
+}
