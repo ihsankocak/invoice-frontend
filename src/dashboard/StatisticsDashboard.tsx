@@ -11,7 +11,7 @@ import _ from "lodash";
 
 
 
-export const Dashboard = () => {
+ const StatisticsDashboard = () => {
 
     const domainApi: DomainApi<any> = useDomainApi();
     const [selectedTimeInterval, setSelectedTimeInterval] = useState(1);
@@ -60,3 +60,4 @@ export const Dashboard = () => {
     </> 
 }
 
+export default StatisticsDashboard;

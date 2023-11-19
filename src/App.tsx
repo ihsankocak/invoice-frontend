@@ -8,7 +8,9 @@ import Language from './components/language/Language';
 import { Flex } from '@chakra-ui/react';
 import { Menu } from './Menu';
 import { InvoiceMain } from './invoice/InvoiceMain';
-import { Dashboard } from './dashboard/Dashboard';
+
+import ShoppinDashboard from './dashboard/ShoppingDashboard';
+import StatisticsDashboard from './dashboard/StatisticsDashboard';
 function NoMatch() {
   return (
     <div>
@@ -27,7 +29,8 @@ function App() {
       <Routes>
     <Route path="/" >
       <Route index element={<InvoiceMain />} />
-      <Route path="dashboard" element={<Dashboard />} />
+      <Route path="dashboard/statistics" element={<StatisticsDashboard />} />
+      <Route path="dashboard/shopping" element={<ShoppinDashboard />} />
       <Route path="invoice" element={<InvoiceMain />} />
       <Route path="*" element={<NoMatch />} />
     </Route>
