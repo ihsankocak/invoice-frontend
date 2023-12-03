@@ -36,31 +36,10 @@ export interface RepresentationModelObject {
   _links?: Links;
 }
 
-export interface InvoiceLine {
-  id?: string;
-  /** @format date */
-  date?: string;
-  product?: string;
-  /** @format float */
-  price?: number;
+export interface EntityModelRole {
   /** @format int32 */
-  itemIdentificationIdOfSeller?: number;
-  storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
-}
-
-export interface EntityModelInvoiceLine {
-  /** @format date */
-  date?: string;
-  product?: string;
-  /** @format float */
-  price?: number;
-  /** @format int32 */
-  itemIdentificationIdOfSeller?: number;
-  storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
+  roleId?: number;
+  authority?: string;
   _links?: Links;
 }
 
@@ -75,18 +54,24 @@ export interface PageMetadata {
   number?: number;
 }
 
-export interface PagedModelEntityModelInvoiceLine {
+export interface PagedModelEntityModelRole {
   _embedded?: {
-    invoiceLines?: EntityModelInvoiceLine[];
+    roles?: EntityModelRole[];
   };
   _links?: Links;
   page?: PageMetadata;
 }
 
-export interface CollectionModelEntityModelInvoiceLine {
-  _embedded?: {
-    invoiceLines?: EntityModelInvoiceLine[];
-  };
+export interface EntityModelInvoice {
+  storeName?: string;
+  unitCode?: string;
+  documentNo?: string;
+  /** @format date */
+  date?: string;
+  /** @uniqueItems true */
+  invoiceLineList?: InvoiceLine[];
+  /** @format float */
+  totalCost?: number;
   _links?: Links;
 }
 
@@ -103,17 +88,18 @@ export interface Invoice {
   totalCost?: number;
 }
 
-export interface EntityModelInvoice {
-  storeName?: string;
-  unitCode?: string;
-  documentNo?: string;
+export interface InvoiceLine {
+  id?: string;
   /** @format date */
   date?: string;
-  /** @uniqueItems true */
-  invoiceLineList?: InvoiceLine[];
+  product?: string;
   /** @format float */
-  totalCost?: number;
-  _links?: Links;
+  price?: number;
+  /** @format int32 */
+  itemIdentificationIdOfSeller?: number;
+  storeName?: string;
+  /** @format int32 */
+  unitCode?: number;
 }
 
 export interface PagedModelEntityModelInvoice {
@@ -131,8 +117,87 @@ export interface CollectionModelEntityModelInvoice {
   _links?: Links;
 }
 
+export interface ApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  authorities?: GrantedAuthority[];
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+}
+
+export interface EntityModelApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+  _links?: Links;
+}
+
 export interface GrantedAuthority {
   authority?: string;
+}
+
+export interface PagedModelEntityModelApplicationUser {
+  _embedded?: {
+    applicationUsers?: EntityModelApplicationUser[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelObject {
+  _embedded?: {
+    objects?: object[];
+  };
+  _links?: Links;
+}
+
+export interface CollectionModelRole {
+  _embedded?: {
+    roles?: RoleResponse[];
+  };
+  _links?: Links;
+}
+
+export interface EntityModelInvoiceLine {
+  /** @format date */
+  date?: string;
+  product?: string;
+  /** @format float */
+  price?: number;
+  /** @format int32 */
+  itemIdentificationIdOfSeller?: number;
+  storeName?: string;
+  /** @format int32 */
+  unitCode?: number;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelInvoiceLine {
+  _embedded?: {
+    invoiceLines?: EntityModelInvoiceLine[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelEntityModelInvoiceLine {
+  _embedded?: {
+    invoiceLines?: EntityModelInvoiceLine[];
+  };
+  _links?: Links;
 }
 
 export interface EntityModelClient {
@@ -169,67 +234,37 @@ export interface PagedModelEntityModelClient {
   page?: PageMetadata;
 }
 
-export interface EntityModelRole {
-  /** @format int32 */
-  roleId?: number;
-  authority?: string;
+export interface EntityModelProduct {
+  storeName?: string;
+  name?: string;
+  /** @format float */
+  price?: number;
+  /** @format date */
+  date?: string;
   _links?: Links;
 }
 
-export interface PagedModelEntityModelRole {
+export interface PagedModelEntityModelProduct {
   _embedded?: {
-    roles?: EntityModelRole[];
+    products?: EntityModelProduct[];
   };
   _links?: Links;
   page?: PageMetadata;
 }
 
-export interface ApplicationUser {
-  /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  authorities?: GrantedAuthority[];
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  /** @format int32 */
-  id?: number;
+export interface Product {
+  id?: string;
+  storeName?: string;
+  name?: string;
+  /** @format float */
+  price?: number;
+  /** @format date */
+  date?: string;
 }
 
-export interface EntityModelApplicationUser {
-  /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  /** @format int32 */
-  id?: number;
-  _links?: Links;
-}
-
-export interface PagedModelEntityModelApplicationUser {
+export interface CollectionModelEntityModelProduct {
   _embedded?: {
-    applicationUsers?: EntityModelApplicationUser[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface CollectionModelRole {
-  _embedded?: {
-    roles?: RoleResponse[];
-  };
-  _links?: Links;
-}
-
-export interface CollectionModelObject {
-  _embedded?: {
-    objects?: object[];
+    products?: EntityModelProduct[];
   };
   _links?: Links;
 }
@@ -306,6 +341,16 @@ export interface InvoiceRequestBody {
   totalCost?: number;
 }
 
+export interface ProductRequestBody {
+  id?: string;
+  storeName?: string;
+  name?: string;
+  /** @format float */
+  price?: number;
+  /** @format date */
+  date?: string;
+}
+
 export interface RoleRequestBody {
   /** @format int32 */
   roleId?: number;
@@ -346,7 +391,7 @@ export interface ProductPriceIncreaseStatistic {
 
 export interface ProductPriceIncreaseStatisticWithTimeTrail {
   productPriceIncreaseStatistic?: ProductPriceIncreaseStatistic;
-  invoiceLinesOfASpecificProduct?: InvoiceLine[];
+  invoiceLinesOfASpecificProduct?: Product[];
 }
 
 export interface Link {
@@ -1236,6 +1281,203 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
         ...params,
       }),
   };
+  products = {
+    /**
+     * @description get-product
+     *
+     * @tags product-entity-controller
+     * @name GetCollectionResourceProductGet1
+     * @request GET:/products
+     */
+    getCollectionResourceProductGet1: (
+      query?: {
+        /**
+         * Zero-based page index (0..N)
+         * @min 0
+         * @default 0
+         */
+        page?: number;
+        /**
+         * The size of the page to be returned
+         * @min 1
+         * @default 20
+         */
+        size?: number;
+        /** Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported. */
+        sort?: string[];
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PagedModelEntityModelProduct, any>({
+        path: `/products`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description create-product
+     *
+     * @tags product-entity-controller
+     * @name PostCollectionResourceProductPost
+     * @request POST:/products
+     */
+    postCollectionResourceProductPost: (data: ProductRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelProduct, any>({
+        path: `/products`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet
+     * @request GET:/products/search/deleteByStoreNameAndDate
+     */
+    executeSearchProductGet: (
+      query?: {
+        storeName?: string;
+        /** @format date */
+        date?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<void, void>({
+        path: `/products/search/deleteByStoreNameAndDate`,
+        method: "GET",
+        query: query,
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet1
+     * @request GET:/products/search/findByDateBetween
+     */
+    executeSearchProductGet1: (
+      query?: {
+        /** @format date */
+        start?: string;
+        /** @format date */
+        end?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CollectionModelEntityModelProduct, void>({
+        path: `/products/search/findByDateBetween`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet2
+     * @request GET:/products/search/findByStoreName
+     */
+    executeSearchProductGet2: (
+      query?: {
+        storeName?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CollectionModelEntityModelProduct, void>({
+        path: `/products/search/findByStoreName`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet3
+     * @request GET:/products/search/findDistinctNameBy
+     */
+    executeSearchProductGet3: (params: RequestParams = {}) =>
+      this.request<CollectionModelEntityModelProduct, void>({
+        path: `/products/search/findDistinctNameBy`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description get-product
+     *
+     * @tags product-entity-controller
+     * @name GetItemResourceProductGet
+     * @request GET:/products/{id}
+     */
+    getItemResourceProductGet: (id: string, params: RequestParams = {}) =>
+      this.request<EntityModelProduct, void>({
+        path: `/products/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description update-product
+     *
+     * @tags product-entity-controller
+     * @name PutItemResourceProductPut
+     * @request PUT:/products/{id}
+     */
+    putItemResourceProductPut: (id: string, data: ProductRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelProduct, any>({
+        path: `/products/${id}`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description delete-product
+     *
+     * @tags product-entity-controller
+     * @name DeleteItemResourceProductDelete
+     * @request DELETE:/products/{id}
+     */
+    deleteItemResourceProductDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, void>({
+        path: `/products/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * @description patch-product
+     *
+     * @tags product-entity-controller
+     * @name PatchItemResourceProductPatch
+     * @request PATCH:/products/{id}
+     */
+    patchItemResourceProductPatch: (id: string, data: ProductRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelProduct, any>({
+        path: `/products/${id}`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   profile = {
     /**
      * No description
@@ -1317,9 +1559,24 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      *
      * @tags profile-controller
      * @name Descriptor115
-     * @request GET:/profile/roles
+     * @request GET:/profile/products
      */
     descriptor115: (params: RequestParams = {}) =>
+      this.request<string, any>({
+        path: `/profile/products`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags profile-controller
+     * @name Descriptor116
+     * @request GET:/profile/roles
+     */
+    descriptor116: (params: RequestParams = {}) =>
       this.request<string, any>({
         path: `/profile/roles`,
         method: "GET",
@@ -1491,11 +1748,11 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      *
      * @tags invoice-controller
      * @name GetInvoiceInfo
-     * @request POST:/invoice
+     * @request POST:/invoice/{store}
      */
-    getInvoiceInfo: (data: ExternalInvoiceServiceParameters, params: RequestParams = {}) =>
+    getInvoiceInfo: (store: string, data: ExternalInvoiceServiceParameters, params: RequestParams = {}) =>
       this.request<Invoice, any>({
-        path: `/invoice`,
+        path: `/invoice/${store}`,
         method: "POST",
         body: data,
         type: ContentType.Json,
@@ -1588,6 +1845,22 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
         path: `/statistics/price/increase/highest`,
         method: "GET",
         query: query,
+        format: "json",
+        ...params,
+      }),
+  };
+  product = {
+    /**
+     * No description
+     *
+     * @tags product-controller
+     * @name GetAllProductNamesOfAllStores
+     * @request GET:/product/names
+     */
+    getAllProductNamesOfAllStores: (params: RequestParams = {}) =>
+      this.request<string[], any>({
+        path: `/product/names`,
+        method: "GET",
         format: "json",
         ...params,
       }),

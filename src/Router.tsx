@@ -9,6 +9,7 @@ import { InvoiceMain } from "./invoice/InvoiceMain";
 
 import ShoppinDashboard from "./dashboard/ShoppingDashboard";
 import StatisticsDashboard from "./dashboard/StatisticsDashboard";
+import { DEFAULT_STORENAME } from "./Constants";
 
 let router = createBrowserRouter([
   {
@@ -20,13 +21,13 @@ let router = createBrowserRouter([
   {
     path: "/invoice",
     Component() {
-      return <InvoiceForm/>
+      return <InvoiceMain/>
     }
   }, 
   {
     path: "/dashboard/statistics",
     Component() {
-      return <StatisticsDashboard/>
+      return <StatisticsDashboard storeName={DEFAULT_STORENAME} />
     }
   },
   {

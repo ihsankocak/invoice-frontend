@@ -32,13 +32,9 @@ export const InvoiceFormGIMSA = () => {
         };
 
         let domainApi = new DomainApi({ baseApiParams: { format: "json" } });
-        domainApi.invoice.getInvoiceInfo(params).then(response=>response.data
+        domainApi.invoice.getInvoiceInfo('gimsa',params).then(response=>response.data
             .invoiceLineList?.forEach(iL=>message("Invoice Line saved",iL.product!.concat(' - ').concat(iL.price?.toString()!),"success")))
-            .catch(exception=>message("Invoice Line could not be saved",exception,"error"))
-
-        
-
-
+            .catch(exception=>message("Invoice Line could not be saved",exception,"error"));
     }
    
     return  <><Box boxSize='sm'><Image src='gimsa.png' alt='GİMSA' />

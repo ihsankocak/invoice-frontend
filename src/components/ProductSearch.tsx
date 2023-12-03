@@ -14,8 +14,9 @@ const ProductSearch=(props:Props)=>{
 refreshProductNames();
   },[]);
 const refreshProductNames=()=>{
-    domainApi.invoiceLine.getAllProductNames().then((result)=>{
+    domainApi.product.getAllProductNamesOfAllStores().then((result)=>{
         const productNameItems:Item[]=[];
+        if(result.data)
         result.data.map(productName=>productNameItems.push({label:productName,value:productName}))
         setProductNames(productNameItems)});
 }
@@ -25,6 +26,12 @@ const refreshProductNames=()=>{
       props.onSelectedItemsChanged(selectedItems);
     }
   };
+  const optionFilterFunc=(items: Item[], inputValue: string) => {
+    if(inputValue.length<3){
+return [];
+    }
+    return items.filter(i=>i.value.includes(inputValue));
+  }
     return  (
         <CUIAutoComplete
           label="Choose product"
@@ -35,6 +42,7 @@ const refreshProductNames=()=>{
           onSelectedItemsChange={(changes) =>
             handleSelectedItemsChange(changes.selectedItems)
           }
+          optionFilterFunc={optionFilterFunc}
           hideToggleButton={true}
           disableCreateItem={true}
         />

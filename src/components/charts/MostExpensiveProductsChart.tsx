@@ -1,6 +1,6 @@
 import React from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, ReferenceArea, Line, LineChart } from 'recharts';
-import { InvoiceLine, ProductPriceIncreaseStatisticWithTimeTrail } from '../../rest/DomainApi';
+import { EntityModelProduct, InvoiceLine, ProductPriceIncreaseStatisticWithTimeTrail } from '../../rest/DomainApi';
 import { color } from '@chakra-ui/react';
 
 
@@ -8,7 +8,7 @@ interface Props {
   title: string,
   xDataKey: string,
   yDataKey: string,
-  data: InvoiceLine[],
+  data: EntityModelProduct[],
   unmergedData: ProductPriceIncreaseStatisticWithTimeTrail[],
   mergedDates: object[]
 }
@@ -21,9 +21,9 @@ export const MostExpensiveProductsChart = (props: Props) => {
     productName: string,
     price: number
   }
-  props.data.forEach((invoiceLine: InvoiceLine) => {
+  props.data.forEach((product: EntityModelProduct) => {
 
-    productNameArray.push(invoiceLine.product!);
+    productNameArray.push(product.name!);
     productNameArray = [...new Set(productNameArray)];
   });
   
