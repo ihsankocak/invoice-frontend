@@ -9,6 +9,7 @@ import message from "../hooks/Message";
 
 import { Image } from '@chakra-ui/react'
 import { useTranslation } from "react-i18next";
+import React from "react";
 
 
 
@@ -32,7 +33,7 @@ export const InvoiceFormBIM = () => {
         };
 
         let domainApi = new DomainApi({ baseApiParams: { format: "json" } });
-        domainApi.invoice.getInvoiceInfo(params).then(response=>response.data
+        domainApi.invoice.getInvoiceInfo('bim',params).then(response=>response.data
             .invoiceLineList?.forEach(iL=>message("Invoice Line saved",iL.product!.concat(' - ').concat(iL.price?.toString()!),"success")))
             .catch(exception=>message("Invoice Line could not be saved",exception,"error"))
 

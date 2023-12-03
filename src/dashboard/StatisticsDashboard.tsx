@@ -1,7 +1,7 @@
 import { Select } from "@chakra-ui/react"
 import { useTranslation } from "react-i18next";
 import { SelectMarket } from "../components/SelectMarket";
-import { DomainApi, InvoiceLine, ProductPriceIncreaseStatisticWithTimeTrail } from "../rest/DomainApi";
+import { DomainApi, EntityModelProduct, InvoiceLine, ProductPriceIncreaseStatisticWithTimeTrail } from "../rest/DomainApi";
 import { useEffect, useState } from "react";
 import { SelectTimeInterval } from "../components/SelectTimeInterval";
 import HighestIncrease from "./HighestIncrease";
@@ -10,15 +10,28 @@ import {  MostExpensiveProductsChart } from "../components/charts/MostExpensiveP
 import _ from "lodash";
 
 
-
- const StatisticsDashboard = () => {
+interface Props{
+    storeName:string
+}
+ const StatisticsDashboard = (props:Props) => {
 
     const domainApi: DomainApi<any> = useDomainApi();
     const [selectedTimeInterval, setSelectedTimeInterval] = useState(1);
+    const [productsOfStore,setProductsOfStore]=useState([] as EntityModelProduct[])
     const [highestIncreasePriceStatistic, setHighestIncreasePriceStatistic] = useState([] as ProductPriceIncreaseStatisticWithTimeTrail[]);
     const [mergedInvoiceLine, setMergedInvoiceLine] = useState([] as  InvoiceLine[]);
  const [mergedDates,setMergedDates]=useState([] as  object[]);
     useEffect(() => {
+        domainApi.products.executeSearchProductGet2({storeName:props.storeName}).then(result=>{
+                setProductsOfStore(result.data._embedded?.products!);
+                console.log(productsOfStore);
+                productsOfStore.forEach(il=>{
+                  setMergedDates((prev)=>{
+                   return  [...prev,{'date':il.date}];
+                  });
+                 //il.date=new Date(parseInt(dateSplits[0]),parseInt(dateSplits[1])-1,parseInt(dateSplits[2]))
+                })
+        });
         domainApi.statistics.getProductOfHighestIncreasingRatioByDays({ daysBefore: selectedTimeInterval })
             .then((result) => setHighestIncreasePriceStatistic(result.data));
     }, [selectedTimeInterval]);
@@ -41,9 +54,7 @@ import _ from "lodash";
     }, [highestIncreasePriceStatistic]);
     const i18Prefix = "dashboard";
     const { t } = useTranslation("translation", { keyPrefix: i18Prefix });
-    const onSelectedMarketChanged = (value: string) => {
-        alert("Not Implemented");
-    }
+    
     const onSelectedTimeIntervalChanged = (value: string) => {
        
         setSelectedTimeInterval(Number(value));
@@ -52,10 +63,9 @@ import _ from "lodash";
     console.log(_.orderBy(_.uniqBy(mergedDates,'date'),'date'));
     return <>
 
-        <SelectMarket onSelectionChange={onSelectedMarketChanged} />
         <SelectTimeInterval onSelectionChange={onSelectedTimeIntervalChanged} />
         <HighestIncrease productPriceIncreaseStatisticArray={highestIncreasePriceStatistic} />
-        <MostExpensiveProductsChart xDataKey="date" yDataKey="price" title="product" data={mergedInvoiceLine} unmergedData={highestIncreasePriceStatistic} 
+        <MostExpensiveProductsChart xDataKey="date" yDataKey="price" title="product" data={productsOfStore} unmergedData={highestIncreasePriceStatistic} 
         mergedDates={_.orderBy(_.uniqBy(mergedDates,'date'),'date')}/>
     </> 
 }
