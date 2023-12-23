@@ -62,7 +62,7 @@ export const InvoiceForm = (props:Props) => {
    
     return  <>
   
-    <Box boxSize='sm'><Image src='a101.jpg' alt='A101' />
+    <Box boxSize='sm'><Image src={props.store+'.png'} alt={props.store.toUpperCase()} />
   </Box>
     <FormControl>
         <FormLabel>{t("documentNo")}</FormLabel>
