@@ -9,7 +9,7 @@ import { Flex } from '@chakra-ui/react';
 import { Menu } from './Menu';
 import { InvoiceMain } from './invoice/InvoiceMain';
 
-import ShoppinDashboard from './dashboard/ShoppingDashboard';
+import ShoppingDashboard from './dashboard/ShoppingDashboard';
 import StatisticsDashboard from './dashboard/StatisticsDashboard';
 import { DEFAULT_STORENAME } from './Constants';
 function NoMatch() {
@@ -31,7 +31,7 @@ function App() {
     <Route path="/" >
       <Route index element={<InvoiceMain />} />
       <Route path="dashboard/statistics" element={<StatisticsDashboard storeName={DEFAULT_STORENAME}/>} />
-      <Route path="dashboard/shopping" element={<ShoppinDashboard />} />
+      <Route path="dashboard/shopping" element={<ShoppingDashboard />} />
       <Route path="invoice" element={<InvoiceMain />} />
       <Route path="*" element={<NoMatch />} />
     </Route>

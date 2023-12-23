@@ -36,11 +36,34 @@ export interface RepresentationModelObject {
   _links?: Links;
 }
 
-export interface EntityModelRole {
-  /** @format int32 */
-  roleId?: number;
-  authority?: string;
+export interface EntityModelClient {
+  id?: string;
+  clientId?: string;
+  /** @format date-time */
+  clientIdIssuedAt?: string;
+  clientSecret?: string;
+  /** @format date-time */
+  clientSecretExpiresAt?: string;
+  clientName?: string;
+  clientAuthenticationMethods?: string;
+  authorizationGrantTypes?: string;
+  redirectUris?: string;
+  postLogoutRedirectUris?: string;
+  scopes?: string;
+  clientSettings?: string;
+  tokenSettings?: string;
+  enabled?: boolean;
+  username?: string;
+  authorities?: GrantedAuthority[];
+  password?: string;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
   _links?: Links;
+}
+
+export interface GrantedAuthority {
+  authority?: string;
 }
 
 export interface PageMetadata {
@@ -54,9 +77,9 @@ export interface PageMetadata {
   number?: number;
 }
 
-export interface PagedModelEntityModelRole {
+export interface PagedModelEntityModelClient {
   _embedded?: {
-    roles?: EntityModelRole[];
+    clients?: EntityModelClient[];
   };
   _links?: Links;
   page?: PageMetadata;
@@ -117,6 +140,41 @@ export interface CollectionModelEntityModelInvoice {
   _links?: Links;
 }
 
+export interface EntityModelProduct {
+  storeName?: string;
+  name?: string;
+  /** @format double */
+  price?: number;
+  /** @format date */
+  date?: string;
+  _links?: Links;
+}
+
+export interface Product {
+  id?: string;
+  storeName?: string;
+  name?: string;
+  /** @format double */
+  price?: number;
+  /** @format date */
+  date?: string;
+}
+
+export interface PagedModelEntityModelProduct {
+  _embedded?: {
+    products?: EntityModelProduct[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelEntityModelProduct {
+  _embedded?: {
+    products?: EntityModelProduct[];
+  };
+  _links?: Links;
+}
+
 export interface ApplicationUser {
   /** @format int32 */
   userId?: number;
@@ -145,10 +203,6 @@ export interface EntityModelApplicationUser {
   _links?: Links;
 }
 
-export interface GrantedAuthority {
-  authority?: string;
-}
-
 export interface PagedModelEntityModelApplicationUser {
   _embedded?: {
     applicationUsers?: EntityModelApplicationUser[];
@@ -157,16 +211,16 @@ export interface PagedModelEntityModelApplicationUser {
   page?: PageMetadata;
 }
 
-export interface CollectionModelObject {
+export interface CollectionModelRole {
   _embedded?: {
-    objects?: object[];
+    roles?: RoleResponse[];
   };
   _links?: Links;
 }
 
-export interface CollectionModelRole {
+export interface CollectionModelObject {
   _embedded?: {
-    roles?: RoleResponse[];
+    objects?: object[];
   };
   _links?: Links;
 }
@@ -200,73 +254,19 @@ export interface CollectionModelEntityModelInvoiceLine {
   _links?: Links;
 }
 
-export interface EntityModelClient {
-  id?: string;
-  clientId?: string;
-  /** @format date-time */
-  clientIdIssuedAt?: string;
-  clientSecret?: string;
-  /** @format date-time */
-  clientSecretExpiresAt?: string;
-  clientName?: string;
-  clientAuthenticationMethods?: string;
-  authorizationGrantTypes?: string;
-  redirectUris?: string;
-  postLogoutRedirectUris?: string;
-  scopes?: string;
-  clientSettings?: string;
-  tokenSettings?: string;
-  enabled?: boolean;
-  username?: string;
-  authorities?: GrantedAuthority[];
-  password?: string;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
+export interface EntityModelRole {
+  /** @format int32 */
+  roleId?: number;
+  authority?: string;
   _links?: Links;
 }
 
-export interface PagedModelEntityModelClient {
+export interface PagedModelEntityModelRole {
   _embedded?: {
-    clients?: EntityModelClient[];
+    roles?: EntityModelRole[];
   };
   _links?: Links;
   page?: PageMetadata;
-}
-
-export interface EntityModelProduct {
-  storeName?: string;
-  name?: string;
-  /** @format float */
-  price?: number;
-  /** @format date */
-  date?: string;
-  _links?: Links;
-}
-
-export interface PagedModelEntityModelProduct {
-  _embedded?: {
-    products?: EntityModelProduct[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface Product {
-  id?: string;
-  storeName?: string;
-  name?: string;
-  /** @format float */
-  price?: number;
-  /** @format date */
-  date?: string;
-}
-
-export interface CollectionModelEntityModelProduct {
-  _embedded?: {
-    products?: EntityModelProduct[];
-  };
-  _links?: Links;
 }
 
 export interface ApplicationUserRequestBody {
@@ -345,7 +345,7 @@ export interface ProductRequestBody {
   id?: string;
   storeName?: string;
   name?: string;
-  /** @format float */
+  /** @format double */
   price?: number;
   /** @format date */
   date?: string;
@@ -377,15 +377,15 @@ export interface LoginResponseDTO {
 
 export interface ProductPriceIncreaseStatistic {
   name: string;
-  /** @format float */
+  /** @format double */
   firstPrice?: number;
-  /** @format float */
+  /** @format double */
   secondPrice?: number;
   /** @format int32 */
   timeIntervalDays?: number;
-  /** @format float */
+  /** @format double */
   ratio?: number;
-  /** @format float */
+  /** @format double */
   ratioPerDay?: number;
 }
 
@@ -1360,9 +1360,31 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      *
      * @tags product-search-controller
      * @name ExecuteSearchProductGet1
-     * @request GET:/products/search/findByDateBetween
+     * @request GET:/products/search/findByDate
      */
     executeSearchProductGet1: (
+      query?: {
+        /** @format date */
+        date?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CollectionModelEntityModelProduct, void>({
+        path: `/products/search/findByDate`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet2
+     * @request GET:/products/search/findByDateBetween
+     */
+    executeSearchProductGet2: (
       query?: {
         /** @format date */
         start?: string;
@@ -1383,10 +1405,10 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      * No description
      *
      * @tags product-search-controller
-     * @name ExecuteSearchProductGet2
+     * @name ExecuteSearchProductGet3
      * @request GET:/products/search/findByStoreName
      */
-    executeSearchProductGet2: (
+    executeSearchProductGet3: (
       query?: {
         storeName?: string;
       },
@@ -1404,12 +1426,27 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      * No description
      *
      * @tags product-search-controller
-     * @name ExecuteSearchProductGet3
+     * @name ExecuteSearchProductGet4
      * @request GET:/products/search/findDistinctNameBy
      */
-    executeSearchProductGet3: (params: RequestParams = {}) =>
+    executeSearchProductGet4: (params: RequestParams = {}) =>
       this.request<CollectionModelEntityModelProduct, void>({
         path: `/products/search/findDistinctNameBy`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-search-controller
+     * @name ExecuteSearchProductGet5
+     * @request GET:/products/search/getMostRecentProductsOfAllStores
+     */
+    executeSearchProductGet5: (params: RequestParams = {}) =>
+      this.request<CollectionModelEntityModelProduct, void>({
+        path: `/products/search/getMostRecentProductsOfAllStores`,
         method: "GET",
         format: "json",
         ...params,
@@ -1850,6 +1887,36 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
       }),
   };
   product = {
+    /**
+     * No description
+     *
+     * @tags product-controller
+     * @name GetTodaysProductsOfAllStores
+     * @request GET:/product/today
+     */
+    getTodaysProductsOfAllStores: (params: RequestParams = {}) =>
+      this.request<Product[], any>({
+        path: `/product/today`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags product-controller
+     * @name SearchProducts
+     * @request GET:/product/search/{partOfProductName}
+     */
+    searchProducts: (partOfProductName: string, params: RequestParams = {}) =>
+      this.request<Product[], any>({
+        path: `/product/search/${partOfProductName}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
     /**
      * No description
      *

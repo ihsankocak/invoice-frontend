@@ -22,7 +22,7 @@ interface Props{
     const [mergedInvoiceLine, setMergedInvoiceLine] = useState([] as  InvoiceLine[]);
  const [mergedDates,setMergedDates]=useState([] as  object[]);
     useEffect(() => {
-        domainApi.products.executeSearchProductGet2({storeName:props.storeName}).then(result=>{
+        domainApi.products.executeSearchProductGet3({storeName:props.storeName}).then(result=>{
                 setProductsOfStore(result.data._embedded?.products!);
                 console.log(productsOfStore);
                 productsOfStore.forEach(il=>{
