@@ -2,7 +2,7 @@ import { CUIAutoComplete, CUIAutoCompleteProps, Item } from "chakra-ui-autocompl
 import React, { useEffect, useState } from "react";
 import useDomainApi from "../hooks/useDomainApi";
 import { CollectionModelEntityModelProduct, DomainApi, EntityModelProduct, Product } from "../rest/DomainApi";
-import { Input } from "@chakra-ui/react";
+import { Avatar, Flex, Input,Text } from "@chakra-ui/react";
 import { ProductItem } from "../types/Product";
 
 
@@ -16,7 +16,7 @@ const ProductSearch=(props:Props)=>{
     const [productNames, setProductNames] = useState<ProductItem[]>([]);
   
   useEffect(()=>{
-refreshProductNames();
+//refreshProductNames();
   },[]);
 const refreshProductNames=()=>{
     domainApi.product.getTodaysProductsOfAllStores().then((result)=>{
@@ -41,18 +41,28 @@ return [];
     domainApi.product.searchProducts(inputValue).then(result=>{
       const productNameItems:ProductItem[]=[];
       if(result.data)
-      result.data.map((product:Product)=>productNameItems.push({label:'('+product.storeName+','+product.price+' TL)'+product.name!
+      result.data.map((product:Product)=>productNameItems.push({label:product.name!+' ('+product.price+' TL)'
     ,value:product.storeName+product.name!,price:product.price,name:product.name,storeName:product.storeName}));
       setProductNames(productNameItems);
     })
     let words:string[]=inputValue.split(" ");
     return items.filter(i=>i.value.toLocaleLowerCase("tr-TR").includes(inputValue.toLocaleLowerCase("tr-TR")));
   }
+  const customRender = (selected:ProductItem) => {
+   
+    return (
+      <Flex  flexDir="row" alignItems="left">
+        <Avatar alignSelf={"left"} mr={2} size="sm"  src={"/"+`${selected.storeName}`+".png"}/>
+        <Text alignSelf={"left"}>{selected.label}</Text>
+      </Flex>
+    )
+  }
     return  (
-        <CUIAutoComplete
+     
+        <CUIAutoComplete 
           label="Choose product"
           placeholder="Type a Product"
-       
+       itemRenderer={customRender}
           items={productNames}
           selectedItems={props.selectedItems}
           onSelectedItemsChange={(changes) =>
