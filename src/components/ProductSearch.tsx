@@ -51,19 +51,20 @@ return [];
   const customRender = (selected:ProductItem) => {
    
     return (
-      <Flex  flexDir="row" alignItems="left">
-        <Avatar alignSelf={"left"} mr={2} size="sm"  src={"/"+`${selected.storeName}`+".png"}/>
-        <Text alignSelf={"left"}>{selected.label}</Text>
+      <Flex  flexDir="row" alignItems="left" alignContent={"left"} align={"left"} alignSelf={"left"} textAlign={"left"}>
+        <Avatar  mr={2} size="sm"  src={"/"+`${selected.storeName}`+".png"}/>
+        <Text>{selected.label}</Text>
       </Flex>
     )
   }
     return  (
-     
+    
         <CUIAutoComplete 
           label="Choose product"
           placeholder="Type a Product"
        itemRenderer={customRender}
           items={productNames}
+          listStyleProps={{textAlign:"left"}}
           selectedItems={props.selectedItems}
           onSelectedItemsChange={(changes) =>
             handleSelectedItemsChange(changes.selectedItems)
@@ -74,8 +75,6 @@ return [];
           disableCreateItem={true}
     
         />
-
-
     
   );
 };
