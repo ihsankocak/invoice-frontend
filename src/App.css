@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+
+.shopping-card {
+  width:600
+}
+
+.shopping-card::before {    
+    content: "";
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    left: 0px;
+    opacity: 0.15;
+}
+
+.shopping-card-a101::before {
+  background-image: url('../public/a101.png');
+}
+.shopping-card-a101kapida::before {
+  background-image: url('../public/a101kapida.png');
+}
+.shopping-card-sok::before {
+  background-image: url('../public/sok.png');
+}
+.shopping-card-bim::before {
+  background-image: url('../public/bim.png');
+}
+

@@ -29,9 +29,10 @@ function App() {
       <Menu/>
       <Routes>
     <Route path="/" >
-      <Route index element={<InvoiceMain />} />
-      <Route path="dashboard/statistics" element={<StatisticsDashboard storeName={DEFAULT_STORENAME}/>} />
+      <Route index element={<ShoppingDashboard />} />
       <Route path="dashboard/shopping" element={<ShoppingDashboard />} />
+      <Route path="dashboard/statistics" element={<StatisticsDashboard storeName={DEFAULT_STORENAME}/>} />
+     
       <Route path="invoice" element={<InvoiceMain />} />
       <Route path="*" element={<NoMatch />} />
     </Route>

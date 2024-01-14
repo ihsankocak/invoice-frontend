@@ -4,6 +4,7 @@ import useDomainApi from "../hooks/useDomainApi";
 import { CollectionModelEntityModelProduct, DomainApi, EntityModelProduct, Product } from "../rest/DomainApi";
 import { Avatar, Flex, Input,Text } from "@chakra-ui/react";
 import { ProductItem } from "../types/Product";
+import { useTranslation } from "react-i18next";
 
 
 interface Props{
@@ -14,7 +15,10 @@ interface Props{
 const ProductSearch=(props:Props)=>{
     const domainApi: DomainApi<any> = useDomainApi();
     const [productNames, setProductNames] = useState<ProductItem[]>([]);
-  
+
+    const i18Prefix="shopping";
+    const {t}=useTranslation("translation", {keyPrefix:i18Prefix});
+const [typeAProductText,setTypeAProductText]=useState(t("typeAProduct"));
   useEffect(()=>{
 //refreshProductNames();
   },[]);
@@ -44,7 +48,7 @@ return [];
       result.data.map((product:Product)=>productNameItems.push({label:product.name!+' ('+product.price+' TL)'
     ,value:product.storeName+product.name!,price:product.price,name:product.name,storeName:product.storeName}));
       setProductNames(productNameItems);
-    })
+    }).catch(reason=>{console.log("error occured while retrieving search result",reason)});
     let words:string[]=inputValue.split(" ");
     return items.filter(i=>i.value.toLocaleLowerCase("tr-TR").includes(inputValue.toLocaleLowerCase("tr-TR")));
   }
@@ -60,8 +64,8 @@ return [];
     return  (
     
         <CUIAutoComplete 
-          label="Choose product"
-          placeholder="Type a Product"
+          label={t("chooseProduct")}
+          placeholder=""
        itemRenderer={customRender}
           items={productNames}
           listStyleProps={{textAlign:"left"}}

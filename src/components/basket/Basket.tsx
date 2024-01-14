@@ -3,6 +3,8 @@ import { Card, CardBody, CardFooter, CardHeader } from "@chakra-ui/card";
 import { BasketLine, BasketLineProps } from "./BasketLine";
 import { Avatar, Divider, Flex, Heading, StackDivider,Text } from "@chakra-ui/react";
 import { Item } from "chakra-ui-autocomplete";
+import useDomainApi from "../../hooks/useDomainApi";
+import { useState } from "react";
 
 
 
@@ -12,6 +14,8 @@ basketLinePropsArray:BasketLineProps[]
 }
 
 export const Basket=(props:BasketProps)=>{
+  const [storeNameKeyValueMap,setStoreNameKeyValueMap]=useState({});
+  const domainApi=useDomainApi();
     let totalPrice:number=0;
     props.basketLinePropsArray.forEach(blp=>totalPrice=totalPrice+(blp.price*blp.productCount))
 
@@ -23,7 +27,12 @@ export const Basket=(props:BasketProps)=>{
           </Flex>
         )
       }
-return <Card id={props.storeName}  backgroundImage={"url(/"+`${props.storeName}`+".png)"} style={{width:600}} size={"sm"}> <CardHeader><Heading size={"sm"}>{props.storeName}</Heading></CardHeader><CardBody>{
+     
+      domainApi.keyvalue.getStoreNameKeyValuesMap().then(result=>{
+  setStoreNameKeyValueMap(result.data);
+console.log(storeNameKeyValueMap);
+      });
+return <Card className={"shopping-card shopping-card-"+`${props.storeName}`} id={props.storeName}  size={"sm"}> <CardHeader><Heading size={"sm"}>{storeNameKeyValueMap[props.storeName as (keyof typeof storeNameKeyValueMap)]}</Heading></CardHeader><CardBody>{
     props.basketLinePropsArray.map(
     blp=> <><BasketLine  price={blp.price} productCount={blp.productCount} productName={blp.productName} storeName={blp.storeName}/><br></br></>)
     }</CardBody><Divider /><CardFooter>Toplam: {totalPrice} TL</CardFooter></Card>
