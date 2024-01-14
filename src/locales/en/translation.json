@@ -12,6 +12,22 @@
         "lastMonth":"Last Month",
         "lastYear": "Last Year",
         "selectTimeInterval":"Select time interval",
-        "selectProduct":"Ürün Seçiniz"
+        "selectProduct":"Select Product",
+        "productName":"Product Name",
+        "firstPrice":"First Price",
+        "lastPrice":"Last Price",
+        "timeIntervalDays":"Time Interval Days",
+        "ratioPerDay":"Increment Ratio Per Day",
+        "ratio":"Increment Ratio"
+    },
+    "shopping":{
+        "chooseProduct":"Select any product from any market they will be added to appropriate baskets",
+        "typeAProduct":"Type the product you'd like to add to a basket"
+    },
+    "menu":{
+        "mainPage":"Main Page",
+        "inputInvoice":"Input Invoice",
+        "statisticsDashboard":"Statistics Dashboard",
+        "shoppingDashboard":"Shopping Dashboard"
     }
 }

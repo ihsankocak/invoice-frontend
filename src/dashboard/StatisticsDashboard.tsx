@@ -8,6 +8,7 @@ import HighestIncrease from "./HighestIncrease";
 import useDomainApi from "../hooks/useDomainApi";
 import {  MostExpensiveProductsChart } from "../components/charts/MostExpensiveProductsChart";
 import _ from "lodash";
+import useInvoiceTranslation from "../hooks/useInvoiceTranslation";
 
 
 interface Props{
@@ -52,8 +53,8 @@ interface Props{
         });
        
     }, [highestIncreasePriceStatistic]);
-    const i18Prefix = "dashboard";
-    const { t } = useTranslation("translation", { keyPrefix: i18Prefix });
+   
+    const  t  = useInvoiceTranslation("dashboard");
     
     const onSelectedTimeIntervalChanged = (value: string) => {
        

@@ -36,34 +36,26 @@ export interface RepresentationModelObject {
   _links?: Links;
 }
 
-export interface EntityModelClient {
+export interface Product {
   id?: string;
-  clientId?: string;
-  /** @format date-time */
-  clientIdIssuedAt?: string;
-  clientSecret?: string;
-  /** @format date-time */
-  clientSecretExpiresAt?: string;
-  clientName?: string;
-  clientAuthenticationMethods?: string;
-  authorizationGrantTypes?: string;
-  redirectUris?: string;
-  postLogoutRedirectUris?: string;
-  scopes?: string;
-  clientSettings?: string;
-  tokenSettings?: string;
-  enabled?: boolean;
-  username?: string;
-  authorities?: GrantedAuthority[];
-  password?: string;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  _links?: Links;
+  storeName?: string;
+  name?: string;
+  /** @format double */
+  price?: number;
+  /** @format date */
+  date?: string;
+  quantityAndUnit?: string;
 }
 
-export interface GrantedAuthority {
-  authority?: string;
+export interface EntityModelProduct {
+  storeName?: string;
+  name?: string;
+  /** @format double */
+  price?: number;
+  /** @format date */
+  date?: string;
+  quantityAndUnit?: string;
+  _links?: Links;
 }
 
 export interface PageMetadata {
@@ -75,89 +67,6 @@ export interface PageMetadata {
   totalPages?: number;
   /** @format int64 */
   number?: number;
-}
-
-export interface PagedModelEntityModelClient {
-  _embedded?: {
-    clients?: EntityModelClient[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface EntityModelInvoice {
-  storeName?: string;
-  unitCode?: string;
-  documentNo?: string;
-  /** @format date */
-  date?: string;
-  /** @uniqueItems true */
-  invoiceLineList?: InvoiceLine[];
-  /** @format float */
-  totalCost?: number;
-  _links?: Links;
-}
-
-export interface Invoice {
-  id?: string;
-  storeName?: string;
-  unitCode?: string;
-  documentNo?: string;
-  /** @format date */
-  date?: string;
-  /** @uniqueItems true */
-  invoiceLineList?: InvoiceLine[];
-  /** @format float */
-  totalCost?: number;
-}
-
-export interface InvoiceLine {
-  id?: string;
-  /** @format date */
-  date?: string;
-  product?: string;
-  /** @format float */
-  price?: number;
-  /** @format int32 */
-  itemIdentificationIdOfSeller?: number;
-  storeName?: string;
-  /** @format int32 */
-  unitCode?: number;
-}
-
-export interface PagedModelEntityModelInvoice {
-  _embedded?: {
-    invoices?: EntityModelInvoice[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface CollectionModelEntityModelInvoice {
-  _embedded?: {
-    invoices?: EntityModelInvoice[];
-  };
-  _links?: Links;
-}
-
-export interface EntityModelProduct {
-  storeName?: string;
-  name?: string;
-  /** @format double */
-  price?: number;
-  /** @format date */
-  date?: string;
-  _links?: Links;
-}
-
-export interface Product {
-  id?: string;
-  storeName?: string;
-  name?: string;
-  /** @format double */
-  price?: number;
-  /** @format date */
-  date?: string;
 }
 
 export interface PagedModelEntityModelProduct {
@@ -175,54 +84,18 @@ export interface CollectionModelEntityModelProduct {
   _links?: Links;
 }
 
-export interface ApplicationUser {
+export interface InvoiceLine {
+  id?: string;
+  /** @format date */
+  date?: string;
+  product?: string;
+  /** @format float */
+  price?: number;
   /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  authorities?: GrantedAuthority[];
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
+  itemIdentificationIdOfSeller?: number;
+  storeName?: string;
   /** @format int32 */
-  id?: number;
-}
-
-export interface EntityModelApplicationUser {
-  /** @format int32 */
-  userId?: number;
-  username?: string;
-  password?: string;
-  enabled?: boolean;
-  accountNonExpired?: boolean;
-  accountNonLocked?: boolean;
-  credentialsNonExpired?: boolean;
-  /** @format int32 */
-  id?: number;
-  _links?: Links;
-}
-
-export interface PagedModelEntityModelApplicationUser {
-  _embedded?: {
-    applicationUsers?: EntityModelApplicationUser[];
-  };
-  _links?: Links;
-  page?: PageMetadata;
-}
-
-export interface CollectionModelRole {
-  _embedded?: {
-    roles?: RoleResponse[];
-  };
-  _links?: Links;
-}
-
-export interface CollectionModelObject {
-  _embedded?: {
-    objects?: object[];
-  };
-  _links?: Links;
+  unitCode?: number;
 }
 
 export interface EntityModelInvoiceLine {
@@ -267,6 +140,157 @@ export interface PagedModelEntityModelRole {
   };
   _links?: Links;
   page?: PageMetadata;
+}
+
+export interface Invoice {
+  id?: string;
+  storeName?: string;
+  unitCode?: string;
+  documentNo?: string;
+  /** @format date */
+  date?: string;
+  /** @uniqueItems true */
+  invoiceLineList?: InvoiceLine[];
+  /** @format float */
+  totalCost?: number;
+}
+
+export interface EntityModelInvoice {
+  storeName?: string;
+  unitCode?: string;
+  documentNo?: string;
+  /** @format date */
+  date?: string;
+  /** @uniqueItems true */
+  invoiceLineList?: InvoiceLine[];
+  /** @format float */
+  totalCost?: number;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelInvoice {
+  _embedded?: {
+    invoices?: EntityModelInvoice[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelEntityModelInvoice {
+  _embedded?: {
+    invoices?: EntityModelInvoice[];
+  };
+  _links?: Links;
+}
+
+export interface ApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  authorities?: GrantedAuthority[];
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+}
+
+export interface GrantedAuthority {
+  authority?: string;
+}
+
+export interface EntityModelApplicationUser {
+  /** @format int32 */
+  userId?: number;
+  username?: string;
+  password?: string;
+  enabled?: boolean;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  /** @format int32 */
+  id?: number;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelApplicationUser {
+  _embedded?: {
+    applicationUsers?: EntityModelApplicationUser[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelRole {
+  _embedded?: {
+    roles?: RoleResponse[];
+  };
+  _links?: Links;
+}
+
+export interface CollectionModelObject {
+  _embedded?: {
+    objects?: object[];
+  };
+  _links?: Links;
+}
+
+export interface EntityModelClient {
+  id?: string;
+  clientId?: string;
+  /** @format date-time */
+  clientIdIssuedAt?: string;
+  clientSecret?: string;
+  /** @format date-time */
+  clientSecretExpiresAt?: string;
+  clientName?: string;
+  clientAuthenticationMethods?: string;
+  authorizationGrantTypes?: string;
+  redirectUris?: string;
+  postLogoutRedirectUris?: string;
+  scopes?: string;
+  clientSettings?: string;
+  tokenSettings?: string;
+  enabled?: boolean;
+  username?: string;
+  authorities?: GrantedAuthority[];
+  password?: string;
+  accountNonExpired?: boolean;
+  accountNonLocked?: boolean;
+  credentialsNonExpired?: boolean;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelClient {
+  _embedded?: {
+    clients?: EntityModelClient[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface EntityModelKeyValue {
+  name?: string;
+  key?: string;
+  value?: string;
+  _links?: Links;
+}
+
+export interface PagedModelEntityModelKeyValue {
+  _embedded?: {
+    keyValues?: EntityModelKeyValue[];
+  };
+  _links?: Links;
+  page?: PageMetadata;
+}
+
+export interface CollectionModelEntityModelKeyValue {
+  _embedded?: {
+    keyValues?: EntityModelKeyValue[];
+  };
+  _links?: Links;
 }
 
 export interface ApplicationUserRequestBody {
@@ -341,6 +365,13 @@ export interface InvoiceRequestBody {
   totalCost?: number;
 }
 
+export interface KeyValueRequestBody {
+  id?: string;
+  name?: string;
+  key?: string;
+  value?: string;
+}
+
 export interface ProductRequestBody {
   id?: string;
   storeName?: string;
@@ -349,6 +380,7 @@ export interface ProductRequestBody {
   price?: number;
   /** @format date */
   date?: string;
+  quantityAndUnit?: string;
 }
 
 export interface RoleRequestBody {
@@ -1281,6 +1313,142 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
         ...params,
       }),
   };
+  keyValues = {
+    /**
+     * @description get-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name GetCollectionResourceKeyvalueGet1
+     * @request GET:/keyValues
+     */
+    getCollectionResourceKeyvalueGet1: (
+      query?: {
+        /**
+         * Zero-based page index (0..N)
+         * @min 0
+         * @default 0
+         */
+        page?: number;
+        /**
+         * The size of the page to be returned
+         * @min 1
+         * @default 20
+         */
+        size?: number;
+        /** Sorting criteria in the format: property,(asc|desc). Default sort order is ascending. Multiple sort criteria are supported. */
+        sort?: string[];
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<PagedModelEntityModelKeyValue, any>({
+        path: `/keyValues`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description create-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name PostCollectionResourceKeyvaluePost
+     * @request POST:/keyValues
+     */
+    postCollectionResourceKeyvaluePost: (data: KeyValueRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelKeyValue, any>({
+        path: `/keyValues`,
+        method: "POST",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags key-value-search-controller
+     * @name ExecuteSearchKeyvalueGet
+     * @request GET:/keyValues/search/findByName
+     */
+    executeSearchKeyvalueGet: (
+      query?: {
+        name?: string;
+      },
+      params: RequestParams = {},
+    ) =>
+      this.request<CollectionModelEntityModelKeyValue, void>({
+        path: `/keyValues/search/findByName`,
+        method: "GET",
+        query: query,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description get-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name GetItemResourceKeyvalueGet
+     * @request GET:/keyValues/{id}
+     */
+    getItemResourceKeyvalueGet: (id: string, params: RequestParams = {}) =>
+      this.request<EntityModelKeyValue, void>({
+        path: `/keyValues/${id}`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description update-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name PutItemResourceKeyvaluePut
+     * @request PUT:/keyValues/{id}
+     */
+    putItemResourceKeyvaluePut: (id: string, data: KeyValueRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelKeyValue, any>({
+        path: `/keyValues/${id}`,
+        method: "PUT",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * @description delete-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name DeleteItemResourceKeyvalueDelete
+     * @request DELETE:/keyValues/{id}
+     */
+    deleteItemResourceKeyvalueDelete: (id: string, params: RequestParams = {}) =>
+      this.request<void, void>({
+        path: `/keyValues/${id}`,
+        method: "DELETE",
+        ...params,
+      }),
+
+    /**
+     * @description patch-keyvalue
+     *
+     * @tags key-value-entity-controller
+     * @name PatchItemResourceKeyvaluePatch
+     * @request PATCH:/keyValues/{id}
+     */
+    patchItemResourceKeyvaluePatch: (id: string, data: KeyValueRequestBody, params: RequestParams = {}) =>
+      this.request<EntityModelKeyValue, any>({
+        path: `/keyValues/${id}`,
+        method: "PATCH",
+        body: data,
+        type: ContentType.Json,
+        format: "json",
+        ...params,
+      }),
+  };
   products = {
     /**
      * @description get-product
@@ -1596,9 +1764,24 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      *
      * @tags profile-controller
      * @name Descriptor115
-     * @request GET:/profile/products
+     * @request GET:/profile/keyValues
      */
     descriptor115: (params: RequestParams = {}) =>
+      this.request<string, any>({
+        path: `/profile/keyValues`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+
+    /**
+     * No description
+     *
+     * @tags profile-controller
+     * @name Descriptor116
+     * @request GET:/profile/products
+     */
+    descriptor116: (params: RequestParams = {}) =>
       this.request<string, any>({
         path: `/profile/products`,
         method: "GET",
@@ -1610,10 +1793,10 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
      * No description
      *
      * @tags profile-controller
-     * @name Descriptor116
+     * @name Descriptor117
      * @request GET:/profile/roles
      */
-    descriptor116: (params: RequestParams = {}) =>
+    descriptor117: (params: RequestParams = {}) =>
       this.request<string, any>({
         path: `/profile/roles`,
         method: "GET",
@@ -1927,6 +2110,22 @@ export class DomainApi<SecurityDataType extends unknown> extends HttpClient<Secu
     getAllProductNamesOfAllStores: (params: RequestParams = {}) =>
       this.request<string[], any>({
         path: `/product/names`,
+        method: "GET",
+        format: "json",
+        ...params,
+      }),
+  };
+  keyvalue = {
+    /**
+     * No description
+     *
+     * @tags key-value-controller
+     * @name GetStoreNameKeyValuesMap
+     * @request GET:/keyvalue/store
+     */
+    getStoreNameKeyValuesMap: (params: RequestParams = {}) =>
+      this.request<Record<string, string>, any>({
+        path: `/keyvalue/store`,
         method: "GET",
         format: "json",
         ...params,

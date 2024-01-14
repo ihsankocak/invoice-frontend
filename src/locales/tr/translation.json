@@ -12,6 +12,22 @@
         "lastMonth":"Geçen Ay",
         "lastYear": "Geçen Yıl",
         "selectTimeInterval":"Zaman Aralığı Seçiniz",
-        "selectProduct":"Select Product"
+        "selectProduct":"Ürün Seçiniz",
+        "productName":"Ürün İsmi",
+        "firstPrice":"İlk Fiyat",
+        "lastPrice":"Son Fiyat",
+        "timeIntervalDays":"Gün Bazında Zaman Aralığı",
+        "ratioPerDay":"Gün bazında artış oranı",
+        "ratio":"Artış Oranı"
+    },
+    "shopping":{
+        "chooseProduct":"Arama sonuçlarından istediğiniz marketten istediğiniz ürünleri seçiniz, ürünler ilgili sepete eklenecektir",
+        "typeAProduct":"Eklemek istediğiniz ürün ismini giriniz"
+    },
+    "menu":{
+        "mainPage":"Anasayfa",
+        "inputInvoice":"Fatura Gir",
+        "statisticsDashboard":"İstatistik Sayfası",
+        "shoppingDashboard":"Alışveriş Sayfası"
     }
 }
