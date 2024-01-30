@@ -16,11 +16,13 @@ const ShoppingDashboard=()=>{
     selectedItems.map(si=>basketLineProps.push({price:si.price!,productCount:1,productName:si.name!,storeName:si.storeName!}));
     const groupedByStoreNameItems=_.groupBy(basketLineProps,({storeName})=>storeName);
     const storeNames:string[]=Object.keys(groupedByStoreNameItems);
-    
+    const onClear=(storeName :string)=>{
+        setSelectedItems(selectedItems.filter(si=>si.storeName!==storeName));
+    }
     return <>
     <ProductSearch selectedItems={selectedItems} onSelectedItemsChanged={(items:ProductItem[])=>setSelectedItems(items)}/>
     <SimpleGrid spacing={4} templateColumns='repeat(auto-fill, minmax(500px, 1fr))'>
-    {storeNames.map((sn=><Basket storeName={sn} basketLinePropsArray={basketLineProps.filter(bl=>bl.storeName===sn)}/>))}
+    {storeNames.map((sn=><Basket onClear={onClear} storeName={sn} basketLinePropsArray={basketLineProps.filter(bl=>bl.storeName===sn)}/>))}
     </SimpleGrid>
     </>
 }

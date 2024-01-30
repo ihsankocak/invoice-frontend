@@ -29,5 +29,8 @@
         "inputInvoice":"Fatura Gir",
         "statisticsDashboard":"İstatistik Sayfası",
         "shoppingDashboard":"Alışveriş Sayfası"
+    },
+    "basket": {
+        "clear": "Temizle"
     }
 }

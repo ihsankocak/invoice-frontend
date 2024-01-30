@@ -29,5 +29,8 @@
         "inputInvoice":"Input Invoice",
         "statisticsDashboard":"Statistics Dashboard",
         "shoppingDashboard":"Shopping Dashboard"
+    },
+    "basket": {
+        "clear": "Clear"
     }
 }
