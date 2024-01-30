@@ -31,6 +31,7 @@
         "shoppingDashboard":"Shopping Dashboard"
     },
     "basket": {
-        "clear": "Clear"
+        "clear": "Clear",
+        "delete": "Delete"
     }
 }

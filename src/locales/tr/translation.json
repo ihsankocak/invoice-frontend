@@ -31,6 +31,7 @@
         "shoppingDashboard":"Alışveriş Sayfası"
     },
     "basket": {
-        "clear": "Temizle"
+        "clear": "Temizle",
+        "delete": "Sil"
     }
 }
