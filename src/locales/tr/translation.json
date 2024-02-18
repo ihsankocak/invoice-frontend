@@ -21,7 +21,7 @@
         "ratio":"Artış Oranı"
     },
     "shopping":{
-        "chooseProduct":"Arama sonuçlarından istediğiniz marketten istediğiniz ürünleri seçiniz, ürünler ilgili sepete eklenecektir",
+        "chooseProduct":"Arama sonuçlarından istediğiniz marketten istediğiniz ürünleri seçiniz, ürünler ait oldukları marketin sepetine eklenecektir",
         "typeAProduct":"Eklemek istediğiniz ürün ismini giriniz"
     },
     "menu":{

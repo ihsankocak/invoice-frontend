@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  align-items: center;
+
 }
 
 .App-logo {
@@ -38,7 +40,10 @@
 }
 
 .shopping-card {
-  width:600
+  width: 19%;
+  float: left;
+  height: 400px;
+  margin: 0.5%;
 }
 
 .shopping-card::before {    
@@ -49,6 +54,7 @@
     bottom: 0px;
     left: 0px;
     opacity: 0.15;
+  
 }
 
 .shopping-card-a101::before {

@@ -1,4 +1,4 @@
-import { Select } from "@chakra-ui/react"
+import { Divider, Select } from "@chakra-ui/react"
 import { useTranslation } from "react-i18next";
 import { SelectMarket } from "../components/SelectMarket";
 import { DomainApi, EntityModelProduct, InvoiceLine, ProductPriceIncreaseStatisticWithTimeTrail } from "../rest/DomainApi";
@@ -66,6 +66,7 @@ interface Props{
 
         <SelectTimeInterval onSelectionChange={onSelectedTimeIntervalChanged} />
         <HighestIncrease productPriceIncreaseStatisticArray={highestIncreasePriceStatistic} />
+        
         <MostExpensiveProductsChart xDataKey="date" yDataKey="price" title="product" data={productsOfStore} unmergedData={highestIncreasePriceStatistic} 
         mergedDates={_.orderBy(_.uniqBy(mergedDates,'date'),'date')}/>
     </> 

@@ -25,7 +25,7 @@ function NoMatch() {
 function App() {
   return (
     <div className="App">
-       <Language />
+      
       <Menu/>
       <Routes>
     <Route path="/" >

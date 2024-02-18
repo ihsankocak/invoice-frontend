@@ -30,23 +30,26 @@ export const MostExpensiveProductsChart = (props: Props) => {
 
 const COLORS=['red','blue','green','yellow', 'orange'];
 
-  return <ResponsiveContainer height={350} width='50%' key={"price"}><LineChart
-    width={500}
-    height={300}
+  return <ResponsiveContainer  height={350} width='50%' key={"price"}>
+    <LineChart
+   
     title={props.title}
    data={props.data}
     margin={{
       top: 5,
-      right: 30,
-      left: 20,
-      bottom: 5,
+      right: 20,
+      left: 10,
+      bottom: 20,
     }}
   >
     <CartesianGrid strokeDasharray="3 3" />
+    
     <XAxis dataKey={props.xDataKey} type='category' allowDuplicatedCategory={false}/>
-   
+    
     <Tooltip />
-    <Legend />
+   
+    <Legend wrapperStyle={{ position: 'relative' }}/>
+    
     <Line data={props.mergedDates} />
     {props.unmergedData.map((statsWithTrail: ProductPriceIncreaseStatisticWithTimeTrail, i) => {
        <YAxis  dataKey={props.yDataKey} />
@@ -58,6 +61,7 @@ const COLORS=['red','blue','green','yellow', 'orange'];
   </LineChart>
 
 </ResponsiveContainer>
+
 }
 
 

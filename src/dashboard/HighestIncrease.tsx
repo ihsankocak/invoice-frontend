@@ -3,21 +3,34 @@ import { DomainApi, ProductPriceIncreaseStatistic, ProductPriceIncreaseStatistic
 import { useState, useEffect } from "react";
 import useDomainApi from "../hooks/useDomainApi";
 import useInvoiceTranslation from "../hooks/useInvoiceTranslation";
-interface Props{
-    productPriceIncreaseStatisticArray:ProductPriceIncreaseStatisticWithTimeTrail[]
+import { Card, CardBody, CardFooter, CardHeader, Divider, Heading } from "@chakra-ui/react";
+interface Props {
+    productPriceIncreaseStatisticArray: ProductPriceIncreaseStatisticWithTimeTrail[]
 }
-const HighestIncrease=(props:Props)=>{
-    const t=useInvoiceTranslation("dashboard");
-  return  <>{props.productPriceIncreaseStatisticArray.map((ppis) =>
-        <>{t("productName")+": "+ ppis.productPriceIncreaseStatistic?.name} <br/> 
-         {t("firstPrice")+": "+ ppis.productPriceIncreaseStatistic?.firstPrice} <br/> 
-            {t("lastPrice")+": "+ppis.productPriceIncreaseStatistic?.secondPrice} <br/>
-            {t("timeIntervalDays")+": "+ppis.productPriceIncreaseStatistic?.timeIntervalDays} <br/>
-            <h1> {t("ratioPerDay")+": "+ppis.productPriceIncreaseStatistic?.ratioPerDay} </h1>
-            <h5> {t("ratio")+": "+ppis.productPriceIncreaseStatistic?.ratio} </h5></>
-    )
+const HighestIncrease = (props: Props) => {
+    const t = useInvoiceTranslation("dashboard");
+    return <>
+        {
+                props.productPriceIncreaseStatisticArray.map((ppis) =>
+               
+                <Card className={"shopping-card shopping-card-"+`${ppis.invoiceLinesOfASpecificProduct![0].storeName}`} size="sm">
+                   <CardHeader> 
+                        <Heading>{t("productName") + ": " + ppis.productPriceIncreaseStatistic?.name} 
+                        </Heading>
+                    </CardHeader>
+                   <CardBody> 
+                    {t("firstPrice") + ": " + ppis.productPriceIncreaseStatistic?.firstPrice} <br></br>
+                    {t("lastPrice") + ": " + ppis.productPriceIncreaseStatistic?.secondPrice} <br></br>
+                    {t("timeIntervalDays") + ": " + ppis.productPriceIncreaseStatistic?.timeIntervalDays} <br></br>
+                    {t("ratioPerDay") + ": " + ppis.productPriceIncreaseStatistic?.ratioPerDay} <br></br>
+                    </CardBody>
+                    <CardFooter>
+                    {t("ratio") + ": " + ppis.productPriceIncreaseStatistic?.ratio} 
+                    </CardFooter></Card>
+                   
+                )
+        }
+    </>
 }
 
-</>
-}
 export default HighestIncrease;

@@ -66,6 +66,7 @@ return [];
         <CUIAutoComplete 
           label={t("chooseProduct")}
           placeholder=""
+         
        itemRenderer={customRender}
           items={productNames}
           listStyleProps={{textAlign:"left"}}

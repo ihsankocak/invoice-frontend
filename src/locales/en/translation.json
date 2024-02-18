@@ -21,7 +21,7 @@
         "ratio":"Increment Ratio"
     },
     "shopping":{
-        "chooseProduct":"Select any product from any market they will be added to appropriate baskets",
+        "chooseProduct":"Select any product from any market they will be added to the market basket it belongs to",
         "typeAProduct":"Type the product you'd like to add to a basket"
     },
     "menu":{
