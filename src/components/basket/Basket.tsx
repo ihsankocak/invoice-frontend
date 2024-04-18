@@ -3,7 +3,7 @@ import {BasketLine, BasketLineProps} from "./BasketLine";
 import {Avatar, Button, Divider, Flex, Heading, StackDivider, Text} from "@chakra-ui/react";
 import {Item} from "chakra-ui-autocomplete";
 import useDomainApi from "../../hooks/useDomainApi";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import {useTranslation} from "react-i18next";
 import useInvoiceTranslation from "../../hooks/useInvoiceTranslation";
 
@@ -30,11 +30,13 @@ export const Basket = (props: BasketProps) => {
             </Flex>
         )
     }
-
+useEffect(()=>{
     domainApi.keyvalue.getStoreNameKeyValuesMap().then(result => {
         setStoreNameKeyValueMap(result.data);
         console.log(storeNameKeyValueMap);
     });
+},[])
+
     return <Card className={"shopping-card shopping-card-" + `${props.storeName}`} id={props.storeName} size={"sm"}>
         <CardHeader>
             <Heading size={"sm"}>{storeNameKeyValueMap[props.storeName as (keyof typeof storeNameKeyValueMap)]}
